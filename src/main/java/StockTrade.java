@@ -45,11 +45,11 @@ public class StockTrade {
 
     @Override
     public String toString() {
-        return "StockTrades{" + '\n' +
-                "type='" + type + '\'' + '\n' +
-                "stockSymbol='" + stockSymbol + '\'' + '\n' +
-                "countShares=" + countShares + '\n' +
-                "pricePerShare='" + pricePerShare + '\'' + '\n' +
-                '}';
+        return "<tr>" +
+                "<td>" + type + "</td><br/>" +
+                "<td>" + stockSymbol + "</td><br/>" +
+                "<td>" + countShares + "</td><br/>" +
+                "<td>" + pricePerShare + "</td><br/>" +
+                "</tr>";
     }
 }

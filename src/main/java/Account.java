@@ -89,14 +89,13 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" + '\n' +
-                "Date Printed='" + dateTimeFormatter.format(LocalDateTime.now()) + '\'' + '\n' +
-                "account_number='" + account_number + '\'' + '\n' +
-                "first_name='" + first_name + '\'' + '\n' +
-                "last_name='" + last_name + '\'' + '\n' +
-                "email='" + email + '\'' + '\n' +
-                "phone='" + phone + '\'' + '\n' +
-                "beginning_balance='" + beginning_balance + '\'' + '\n' +
-                '}';
+        return "<h2>Account</h2> <br/>" +
+                "<p> Date Printed: " + dateTimeFormatter.format(LocalDateTime.now()) + "</p><br/>" +
+                "<p> Account Number: " + account_number + "</p><br/>" +
+                "<p> First Name: " + first_name + "</p><br/>" +
+                "<p> Last Name: " + last_name + "</p><br/>" +
+                "<p> Email: " + email + "</p><br/>" +
+                "<p> Phone: " + phone + "</p><br/>" +
+                "<p> Beginning Balance: $" + beginning_balance + "</p><br/>";
     }
 }

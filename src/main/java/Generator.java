@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class Generator {
 
     private static ArrayList<StockTrade> stockTradeList;
-    private static Account account1;
 
     public static void main(String[] args)
     {
@@ -69,8 +68,11 @@ public class Generator {
 
         stockTrades.forEach(stockTrade -> stockTradeList.add(HandleStockTrades( (JSONObject) stockTrade)));
 
-        account1 = new Account(accountNumber, ssn, firstName, lastName, email, phone, actualBalance);
+        Account account1 = new Account(accountNumber, ssn, firstName, lastName, email, phone, actualBalance);
         account1.setStockTradeList(stockTradeList);
+
+        //Test
+        System.out.println(account1.toString());
 
         //Test
 //        account1.getStockTradeList().forEach(stockTrade -> {
@@ -94,7 +96,8 @@ public class Generator {
     }
 
     public static void ConvertJSONToHTML(Account account) throws IOException {
-        OutputStream outputStream = new FileOutputStream("./HTMLFiles/test.html");
+        int x = 0;
+        OutputStream outputStream = new FileOutputStream("./HTMLFiles/" + x + ".html");
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
 
         outputStreamWriter.write("<!DOCTYPE html>");
@@ -102,16 +105,27 @@ public class Generator {
 
         outputStreamWriter.write(String.format("%s", account.toString()));
 
-//        outputStreamWriter.write("<table>");
-//        for (Course course:person.getCourses()) {
-//            // write each row here
-//
-//        }
-//        outputStreamWriter.write("</table>");
+        outputStreamWriter.write("<table>");
+        outputStreamWriter.write("<tr>" +
+                "<th>Type</th>" +
+                "<th>Stock Symbol</th>" +
+                "<th>Count of Shares</th>" +
+                "<th>Price Per Share</th>" +
+                "</tr>");
+        account.getStockTradeList().forEach(stockTrade -> {
+            try {
+                outputStreamWriter.write(String.format("%s", stockTrade.toString()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        outputStreamWriter.write("</table>");
 
         outputStreamWriter.write("</body></html>");
 
         outputStreamWriter.close();
+
+        x++;
     }
 
     public static void ConvertHTMLToPDF(){

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>570</x>
+      <y>90</y>
+      <w>290</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>Read JSON Data
+--
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>570</x>
+      <y>360</y>
+      <w>290</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>Convert JSON data to HTML
+--
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>570</x>
+      <y>640</y>
+      <w>290</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>Convert HTML to PDF
+--
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>390</y>
+      <w>250</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Use OutputStream Reader
+--
+
+Create the HTML files</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>120</y>
+      <w>250</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Use JSON-Simple dependency
+--
+
+Method will load the JSON file</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>670</y>
+      <w>250</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Use openhtmltopdf dependency
+--
+
+Convert HTML Files to PDF</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>690</x>
+      <y>280</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>690</x>
+      <y>550</y>
+      <w>30</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>220</x>
+      <y>70</y>
+      <w>180</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Store the JSON file in the 
+project direcroty folder
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

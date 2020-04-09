@@ -49,7 +49,7 @@ public class StockTrade {
                 "<td>" + type + "</td><br/>" +
                 "<td>" + stockSymbol + "</td><br/>" +
                 "<td>" + countShares + "</td><br/>" +
-                "<td>" + pricePerShare + "</td><br/>" +
+                "<td> $" + pricePerShare + "</td><br/>" +
                 "</tr>";
     }
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Generator {
 
     private static ArrayList<StockTrade> stockTradeList;
+    private static Account account1;
 
     public static void main(String[] args)
     {
@@ -33,7 +34,6 @@ public class Generator {
 
             JSONArray accountList = (JSONArray) obj;
 
-            //Iterate over employee array
             accountList.forEach( account -> {
                 try {
                     CreateAccount( (JSONObject) account );
@@ -68,17 +68,16 @@ public class Generator {
 
         stockTrades.forEach(stockTrade -> stockTradeList.add(HandleStockTrades( (JSONObject) stockTrade)));
 
-        Account account1 = new Account(accountNumber, ssn, firstName, lastName, email, phone, actualBalance);
+        account1 = new Account(accountNumber, ssn, firstName, lastName, email, phone, actualBalance);
         account1.setStockTradeList(stockTradeList);
 
         //Test
-        System.out.println(account1.toString());
+//        System.out.println(account1.toString());
 
         //Test
 //        account1.getStockTradeList().forEach(stockTrade -> {
 //            System.out.println(stockTrade.toString());
 //        });
-
         ConvertJSONToHTML(account1);
     }
 
@@ -96,8 +95,7 @@ public class Generator {
     }
 
     public static void ConvertJSONToHTML(Account account) throws IOException {
-        int x = 0;
-        OutputStream outputStream = new FileOutputStream("./HTMLFiles/" + x + ".html");
+        OutputStream outputStream = new FileOutputStream("./HTMLFiles/" + account.getAccount_number() + ".html");
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
 
         outputStreamWriter.write("<!DOCTYPE html>");
@@ -124,8 +122,6 @@ public class Generator {
         outputStreamWriter.write("</body></html>");
 
         outputStreamWriter.close();
-
-        x++;
     }
 
     public static void ConvertHTMLToPDF(){

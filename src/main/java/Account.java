@@ -10,6 +10,8 @@ public class Account {
     private String email;
     private String phone;
     private Double beginning_balance;
+    private Double cash_amount;
+    private Double stock_holdings;
     private ArrayList<StockTrade> stockTradeList;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
 
@@ -21,6 +23,8 @@ public class Account {
         this.email = email;
         this.phone = phone;
         this.beginning_balance = beginning_balance;
+        this.cash_amount = beginning_balance;
+        this.stock_holdings = 0.0;
     }
 
     public Long getAccount_number() {
@@ -79,6 +83,22 @@ public class Account {
         this.beginning_balance = beginning_balance;
     }
 
+    public Double getCash_amount() {
+        return cash_amount;
+    }
+
+    public void setCash_amount(Double cash_amount) {
+        this.cash_amount = cash_amount;
+    }
+
+    public Double getStock_holdings() {
+        return stock_holdings;
+    }
+
+    public void setStock_holdings(Double stock_holdings) {
+        this.stock_holdings = stock_holdings;
+    }
+
     public ArrayList<StockTrade> getStockTradeList() {
         return stockTradeList;
     }
@@ -96,6 +116,6 @@ public class Account {
                 "<p> Last Name: " + last_name + "</p><br/>" +
                 "<p> Email: " + email + "</p><br/>" +
                 "<p> Phone: " + phone + "</p><br/>" +
-                "<p> Beginning Balance: $" + beginning_balance + "</p><br/>";
+                "<p> Beginning Balance: $" + beginning_balance + "</p>";
     }
 }

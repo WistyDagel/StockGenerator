@@ -1,3 +1,4 @@
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,8 +12,7 @@ public class Generator {
     private static ArrayList<StockTrade> stockTradeList;
     private static Account account1;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws Exception {
         //Read the JSON Data
         ReadJSONData();
 
@@ -78,7 +78,28 @@ public class Generator {
 //        account1.getStockTradeList().forEach(stockTrade -> {
 //            System.out.println(stockTrade.toString());
 //        });
+
+        HandleCashAndStockHoldings(account1);
         ConvertJSONToHTML(account1);
+    }
+
+    public static void HandleCashAndStockHoldings(Account account) {
+        account.getStockTradeList().forEach(stockTrade -> {
+            //BUY
+            if (stockTrade.getType().equals("Buy")){
+                //Removes the amount of shares purchased from the current balance
+                account.setCash_amount(( account.getCash_amount() - (stockTrade.getPricePerShare() * stockTrade.getCountShares())));
+                //Adds the amount of stock holdings to the account
+                account.setStock_holdings((double) account.getStock_holdings() + stockTrade.getCountShares());
+            }
+            //SELL
+            else {
+                //Add the amount of shares sold from the current balance
+                account.setCash_amount(account.getCash_amount() + (stockTrade.getPricePerShare() * stockTrade.getCountShares()));
+                //Removes the amount of stock holdings to the account
+                account.setStock_holdings((double) account.getStock_holdings() - stockTrade.getCountShares());
+            }
+        });
     }
 
     public static StockTrade HandleStockTrades(JSONObject stock) {
@@ -119,12 +140,32 @@ public class Generator {
         });
         outputStreamWriter.write("</table>");
 
+        outputStreamWriter.write("<h3> Current Cash Balance: " + account.getCash_amount() + "</h3>");
+        outputStreamWriter.write("<h3> Current Stock Holdings: " + account.getStock_holdings() + "</h3>");
+
         outputStreamWriter.write("</body></html>");
 
         outputStreamWriter.close();
     }
 
-    public static void ConvertHTMLToPDF(){
-
+    public static void ConvertHTMLToPDF() throws Exception {
+        File dir = new File("./HTMLFiles/");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                try (OutputStream os = new FileOutputStream("./PDF/out.pdf")) {
+                    PdfRendererBuilder builder = new PdfRendererBuilder();
+                    PdfRendererBuilder pdfRendererBuilder = builder.useFastMode();
+                    builder.withUri("file:///C:/Users/Chris/Documents/Homework%20-%20Neumont/Quarter%207/Open%20Source%20Platforms%20Development/StockGenerator/");
+                    builder.toStream(os);
+                    builder.run();
+                }
+            }
+        } else {
+            // Handle the case where dir is not really a directory.
+            // Checking dir.isDirectory() above would not be sufficient
+            // to avoid race conditions with another process that deletes
+            // directories.
+        }
     }
 }

@@ -20,7 +20,7 @@ public class Generator {
 //        ConvertJSONToHTML();
 
         //Convert the HTML into PDF
-//        ConvertHTMLToPDF();
+        ConvertHTMLToPDF();
     }
 
     public static void ReadJSONData(){
@@ -37,7 +37,7 @@ public class Generator {
             accountList.forEach( account -> {
                 try {
                     CreateAccount( (JSONObject) account );
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             });
@@ -51,7 +51,7 @@ public class Generator {
         }
     }
 
-    public static void CreateAccount (JSONObject account) throws IOException {
+    public static void CreateAccount (JSONObject account) throws Exception {
         Long accountNumber = (Long) account.get("account_number");
         String ssn =  (String) account.get("ssn");
         String firstName = (String) account.get("first_name");
@@ -115,7 +115,7 @@ public class Generator {
         return stockTrade;
     }
 
-    public static void ConvertJSONToHTML(Account account) throws IOException {
+    public static void ConvertJSONToHTML(Account account) throws Exception {
         OutputStream outputStream = new FileOutputStream("./HTMLFiles/" + account.getAccount_number() + ".html");
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
 
@@ -149,23 +149,28 @@ public class Generator {
     }
 
     public static void ConvertHTMLToPDF() throws Exception {
-        File dir = new File("./HTMLFiles/");
-        File[] directoryListing = dir.listFiles();
-        if (directoryListing != null) {
-            for (File child : directoryListing) {
-                try (OutputStream os = new FileOutputStream("./PDF/out.pdf")) {
-                    PdfRendererBuilder builder = new PdfRendererBuilder();
-                    PdfRendererBuilder pdfRendererBuilder = builder.useFastMode();
-                    builder.withUri("file:///C:/Users/Chris/Documents/Homework%20-%20Neumont/Quarter%207/Open%20Source%20Platforms%20Development/StockGenerator/");
-                    builder.toStream(os);
-                    builder.run();
-                }
+//        File dir = new File("./HTMLFiles/");
+//        File[] directoryListing = dir.listFiles();
+//        if (directoryListing != null) {
+//            for (File child : directoryListing) {
+//                System.out.println(child);
+//
+//            }
+//        } else {
+//            // Handle the case where dir is not really a directory.
+//            // Checking dir.isDirectory() above would not be sufficient
+//            // to avoid race conditions with another process that deletes
+//            // directories.
+//        }
+
+        for (int i = 1; i <= 300; i++){
+            try (OutputStream os = new FileOutputStream("./PDF/" + i + ".pdf")) {
+                PdfRendererBuilder builder = new PdfRendererBuilder();
+                PdfRendererBuilder pdfRendererBuilder = builder.useFastMode();
+                builder.withUri("file:///C:/Users/Chris/Documents/Homework%20-%20Neumont/Quarter%207/Open%20Source%20Platforms%20Development/StockGenerator/HTMLFiles/" + i + ".html");
+                builder.toStream(os);
+                builder.run();
             }
-        } else {
-            // Handle the case where dir is not really a directory.
-            // Checking dir.isDirectory() above would not be sufficient
-            // to avoid race conditions with another process that deletes
-            // directories.
         }
     }
 }

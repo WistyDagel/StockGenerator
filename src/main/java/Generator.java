@@ -149,28 +149,26 @@ public class Generator {
     }
 
     public static void ConvertHTMLToPDF() throws Exception {
-//        File dir = new File("./HTMLFiles/");
-//        File[] directoryListing = dir.listFiles();
-//        if (directoryListing != null) {
-//            for (File child : directoryListing) {
-//                System.out.println(child);
-//
-//            }
-//        } else {
-//            // Handle the case where dir is not really a directory.
-//            // Checking dir.isDirectory() above would not be sufficient
-//            // to avoid race conditions with another process that deletes
-//            // directories.
-//        }
+        File dir = new File("./HTMLFiles/");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                String filename = child.toString().replaceAll(".\\\\HTMLFiles\\\\", "");
+                filename = filename.replaceAll(".html", "");
+                try (OutputStream os = new FileOutputStream("./PDF/" + filename + ".pdf")) {
+                    PdfRendererBuilder builder = new PdfRendererBuilder();
+                    PdfRendererBuilder pdfRendererBuilder = builder.useFastMode();
+                    builder.withUri("file:///C:/Users/Chris/Documents/Homework%20-%20Neumont/Quarter%207/Open%20Source%20Platforms%20Development/StockGenerator/HTMLFiles/" + filename + ".html");
+                    builder.toStream(os);
+                    builder.run();
+                }
 
-        for (int i = 1; i <= 300; i++){
-            try (OutputStream os = new FileOutputStream("./PDF/" + i + ".pdf")) {
-                PdfRendererBuilder builder = new PdfRendererBuilder();
-                PdfRendererBuilder pdfRendererBuilder = builder.useFastMode();
-                builder.withUri("file:///C:/Users/Chris/Documents/Homework%20-%20Neumont/Quarter%207/Open%20Source%20Platforms%20Development/StockGenerator/HTMLFiles/" + i + ".html");
-                builder.toStream(os);
-                builder.run();
             }
+        } else {
+            // Handle the case where dir is not really a directory.
+            // Checking dir.isDirectory() above would not be sufficient
+            // to avoid race conditions with another process that deletes
+            // directories.
         }
     }
 }

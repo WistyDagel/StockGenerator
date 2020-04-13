@@ -157,7 +157,6 @@ public class Generator {
                 filename = filename.replaceAll(".html", "");
                 try (OutputStream os = new FileOutputStream("./PDF/" + filename + ".pdf")) {
                     PdfRendererBuilder builder = new PdfRendererBuilder();
-                    PdfRendererBuilder pdfRendererBuilder = builder.useFastMode();
                     builder.withUri("file:///C:/Users/Chris/Documents/Homework%20-%20Neumont/Quarter%207/Open%20Source%20Platforms%20Development/StockGenerator/HTMLFiles/" + filename + ".html");
                     builder.toStream(os);
                     builder.run();
